@@ -227,22 +227,21 @@ func (ch *ClickHouse) ensureVersionTable() (err error) {
 	}
 
 	// if not, create the empty migration table
-	//if len(ch.config.ClusterName) > 0 {
-	query = fmt.Sprintf(`
+	if len(ch.config.ClusterName) > 0 {
+		query = fmt.Sprintf(`
 			CREATE TABLE %s ON CLUSTER %s (
 				version    Int64,
 				dirty      UInt8,
 				sequence   UInt64
 			) Engine=%s`, ch.config.MigrationsTable, ch.config.ClusterName, ch.config.MigrationsTableEngine)
-	fmt.Printf("using create table query: %s\n", query)
-	//} else {
-	//	query = fmt.Sprintf(`
-	//		CREATE TABLE %s (
-	//			version    Int64,
-	//			dirty      UInt8,
-	//			sequence   UInt64
-	//		) Engine=%s`, ch.config.MigrationsTable, ch.config.MigrationsTableEngine)
-	//}
+	} else {
+		query = fmt.Sprintf(`
+			CREATE TABLE %s (
+				version    Int64,
+				dirty      UInt8,
+				sequence   UInt64
+			) Engine=%s`, ch.config.MigrationsTable, ch.config.MigrationsTableEngine)
+	}
 
 	if strings.Contains(ch.config.MigrationsTableEngine, "MergeTree") {
 		query = fmt.Sprintf(`%s ORDER BY sequence`, query)
