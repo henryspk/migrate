@@ -6,7 +6,7 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
-	"github.com/golang-migrate/migrate/v4"
+	"github.com/henryspk/migrate/v4"
 	"log"
 	"strings"
 	"testing"
@@ -18,9 +18,9 @@ import (
 )
 
 import (
-	dt "github.com/golang-migrate/migrate/v4/database/testing"
-	"github.com/golang-migrate/migrate/v4/dktesting"
-	_ "github.com/golang-migrate/migrate/v4/source/file"
+	dt "github.com/henryspk/migrate/v4/database/testing"
+	"github.com/henryspk/migrate/v4/dktesting"
+	_ "github.com/henryspk/migrate/v4/source/file"
 )
 
 const defaultPort = 26257
